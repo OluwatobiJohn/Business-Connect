@@ -64,13 +64,35 @@ router.get('/:businessId', async (req,res) => {
 router.delete('/:businessId', async (req,res) => {
     
     try {
-        const deleteBusiness = await Business.findByIdAndDelete(req.params.businessId);
+        const deleteBusiness = await Business.deleteOne({_id: req.params.businessId});
         res.json(deleteBusiness)
     }
     catch (err) {
         res.json({message: err});
     }
 });
+
+//Update a Business
+router.patch('/:businessId', async (req, res) => {
+    try {
+        const updateBusiness = await Business.updateOne(
+            {_id: req.params.businessId},
+            {$set: {
+                outlet: req.body.outlet,
+                address: req.body.address,
+                category: req.body.category,
+                location: req.body.location,
+                telephone: req.body.telephone
+            }}
+        );
+        res.json(updateBusiness)
+    } 
+    catch (err) {
+        res.send({message: err})
+    }
+});
+
+
 
 //Get Business reviews
 router.get('/reviews', (req,res) => {
