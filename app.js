@@ -1,6 +1,14 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+require('dotenv/config');
+
+
+//Connect to Mongo DataBase
+mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
+    console.log('Connected to MongoDB')
+});
 
 
 //Body Parser Middleware

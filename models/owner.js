@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const ownerSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -21,6 +21,6 @@ const userSchema = new mongoose.Schema({
 });
 
 
-const User = mongoose.model('Users', userSchema);
+const Owner = mongoose.model('Owner', ownerSchema);
 
-module.exports = User;
+module.exports = Owner;
