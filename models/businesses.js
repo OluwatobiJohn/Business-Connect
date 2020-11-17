@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const businessSchema = new mongoose.Schema({
-    name : {
+    outlet:{
         type: String,
         required: true
     },
@@ -18,7 +18,7 @@ const businessSchema = new mongoose.Schema({
         required: true
     },
     telephone:{
-        type: String,
+        type: Number,
         required: true
     },
     date: {
