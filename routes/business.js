@@ -1,9 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const business = require('../models/businesses');
 
 //Get All Business req
-router.get('/', (req,res) => {
-
+router.get('/', async (req,res) => {
+    try {
+        const businesses = business.find();
+        res.send(businesses);
+    } 
+    catch(err) {
+        res.send({message: err});
+    }
 });
 
 //Post New Business req
