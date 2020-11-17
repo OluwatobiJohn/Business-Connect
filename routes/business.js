@@ -3,6 +3,7 @@ const router = express.Router();
 const Business = require('../models/businesses');
 const { body, validationResult } = require('express-validator');
 
+
 //Get All Business req
 router.get('/', async (req,res) => {
     try {
@@ -49,8 +50,26 @@ router.post('/', [
 });
 
 //Get Specific Business req
-router.get('/:id', (req,res) => {
+router.get('/:businessId', async (req,res) => {
+    try {
+        const business =  await Business.findById(req.params.businessId);
+        res.json(business);
+    }
+    catch (err) {
+        res.json({message: err})
+    }
+});
+
+//Delete Specific Business
+router.delete('/:businessId', async (req,res) => {
     
+    try {
+        const deleteBusiness = await Business.findByIdAndDelete(req.params.businessId);
+        res.json(deleteBusiness)
+    }
+    catch (err) {
+        res.json({message: err});
+    }
 });
 
 //Get Business reviews
