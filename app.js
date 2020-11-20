@@ -16,11 +16,14 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 //Import Routes
+const reviewRoute = require('./routes/reviews');
 const businessRoute = require('./routes/business');
 const authRoute = require('./routes/auth');
 
+app.use('/business/reviews', reviewRoute);
 app.use('/business', businessRoute)
 app.use('/auth', authRoute)
+
 
 
 //Port Listen

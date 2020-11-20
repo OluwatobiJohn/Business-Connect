@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Business = require('../models/businesses');
-const Reviews = require('../models/reviews');
 const { body, validationResult } = require('express-validator');
 
 
@@ -50,6 +49,7 @@ router.post('/', [
 
 });
 
+
 //Get Specific Business req
 router.get('/:businessId', async (req,res) => {
     try {
@@ -92,46 +92,19 @@ router.patch('/:businessId', async (req, res) => {
         res.send({message: err})
     }
 });
+// //Get Business by location
+// router.get('/location=<location>', (req,res) => {
+
+// });
+
+// //Get Business by Category
+// router.get('/?category=<category>', (req,res) => {
+
+// });
 
 
 
-//Get Business reviews
-router.get('/reviews', async (req,res) => {
-    try {
-        const reviews = await Reviews.find();
-        res.json(reviews);
-    } 
-    catch (err) {
-        res.json({message: err});
-    }
-});
 
-//Post Business reviews
-router.post('/reviews', [
-    body('name').isLength({min: 4, max: 20}).withMessage('Name must be between 4 - 20 Characters'),
-    body('comment').isLength({min: 15, max: 50}).withMessage('Comments must contain at least 15 characters, and at most 50 characters'),
-    body('recommendation').isLength({min: 10, max: 30}).withMessage('Recommendation message must be between 10 - 30 characters'),
-] , async (req,res) => {
-    const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-       return res.status(400).send({errors: errors.array()});
-    };
-
-    //Create comment
-    const newReview = new Reviews ({
-        name: req.body.name,
-        comment: req.body.comment,
-        recommendation: req.body.recommendation
-    })
-    //save comment
-    try{
-        const saveReview = newReview.save();
-        res.send(saveReview)
-    }
-    catch (err) {
-        res.send({message: err})
-    }
-});
 
 module.exports = router;
