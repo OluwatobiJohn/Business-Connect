@@ -8,8 +8,6 @@ router.post('/register', Validator.registerVal , Owner.createUser);
 
 
 //Login Post req
-router.post('/login', (req,res) => {
-
-});
+router.post('/login', Owner.loginUser);
 
 module.exports = router;
